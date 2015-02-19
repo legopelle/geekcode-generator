@@ -1,14 +1,17 @@
-CC=gcc
-CFLAGS=-Wall -g
+CC = gcc
+CFLAGS = -Wall -g
+DEPS = primes.h
+OBJ = main.o gfields.o
 
-geekgen: gg.o
-	$(CC) $(CFLAGS) -o geekgen gg.o
 
-helloworld.o: gg.c
-	$(CC) $(CFLAGS) -o gg.o -c gg.c
+geekgen: $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -f geekgen *.o *~
 
-run: helloworld
+run: geekgen
 	./geekgen
